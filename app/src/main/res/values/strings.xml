@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">Practica1PMDM</string>
+    <string name="m_sica">Música</string>
+    <string name="selecciona_uno_o_m_s_hobbies">Selecciona uno o más Hobbies:</string>
+    <string name="correo_electr_nico">Correo Electrónico:</string>
+    <string name="suscripci_n_al_bolet_n_informativo">Suscripción al boletín informativo</string>
+    <string name="mi_perfil_personal">Mi Perfil Personal</string>
+    <string name="nombre">Nombre:</string>
+    <string name="apellido">Apellido:</string>
+    <string name="masculino">Masculino</string>
+    <string name="femenino">Femenino</string>
+    <string name="otro">Otro</string>
+    <string name="g_nero">Género</string>
+    <string name="guardar">Guardar</string>
+    <string name="selecciona_pa_s_de_origen">Selecciona País de origen:</string>
+    <string name="lectura">Lectura</string>
+    <string name="deporte">Deporte</string>
+    <string name="arte">Arte</string>
+    <string name="seleccione_su_nivel_de_satisfacci_n">Seleccione su nivel de satisfacción</string>
+    <string-array name="paises_array">
+        <item>España</item>
+        <item>Alemania</item>
+        <item>Italia</item>
+        <item>China</item>
+        <item>Japón</item>
+        <item>Inglaterra</item>
+        <item>Estados Unidos</item>
+        <item>Colombia</item>
+        <item>Canada</item>
+        <item>Rusia</item>
+        <item>Portugal</item>
+    </string-array>
 </resources>
