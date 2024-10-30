@@ -7,6 +7,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.SeekBar
@@ -28,7 +29,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     lateinit var apellidoMostrar: String
     lateinit var correoMostrar: String
     lateinit var mostrarProgreso: String
-
+    private lateinit var textoMostrar: TextView
+    private val KEY_EDIT_TEXT = "key_edit_text"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,9 +49,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val seekBarSatisfaccion = findViewById<SeekBar>(R.id.seekBarSatisfaccion)
         val botonGuardar = findViewById<Button>(R.id.buttonGuardar)
         val nivelSatisfaccionText = findViewById<TextView>(R.id.textViewNivelSatisfaccion)
-        val textoMostrar = findViewById<TextView>(R.id.textViewMostrar)
+        textoMostrar = findViewById<TextView>(R.id.textViewMostrar)
         mostrarProgreso = "0"
-        textoMostrar.text = ""
         nombreMostrar = ""
         apellidoMostrar = ""
         correoMostrar = ""
@@ -74,7 +75,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
             override fun onProgressChanged(p0: SeekBar?, progreso: Int, p2: Boolean) {
                 nivelSatisfaccionText.text = "Satisfacción nivel \n $progreso estrellas"
-                 mostrarProgreso = progreso.toString()
+                mostrarProgreso = progreso.toString()
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -99,7 +100,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 Toast.makeText(this, "En el Campo correo debe haber un correo válido", LENGTH_LONG)
                     .show()
 
-            }else {
+            } else {
                 var textoHobbies = ""
                 val selectedRadioButtonId = radioGroupGenero.checkedRadioButtonId
                 val textoSelectedRadioButton = findViewById<RadioButton>(selectedRadioButtonId)
@@ -110,31 +111,34 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
 
 
-                if(seleccionHobbiesArte.isChecked){
+                if (seleccionHobbiesArte.isChecked) {
                     textoHobbies += " " + seleccionHobbiesArte.text.toString().lowercase() + ","
                 }
-                if(seleccionHobbiesMusica.isChecked){
+                if (seleccionHobbiesMusica.isChecked) {
                     textoHobbies += " " + seleccionHobbiesMusica.text.toString().lowercase() + ","
                 }
-                if(seleccionHobbiesDeporte.isChecked){
+                if (seleccionHobbiesDeporte.isChecked) {
                     textoHobbies += " " + seleccionHobbiesDeporte.text.toString().lowercase() + ","
                 }
-                if(seleccionHobbiesLectura.isChecked){
+                if (seleccionHobbiesLectura.isChecked) {
                     textoHobbies += " " + seleccionHobbiesLectura.text.toString().lowercase() + ","
                 }
-                if(textoHobbies == ""){
+                if (textoHobbies == "") {
                     textoHobbies = "No has seleccionado ningún  hobbie"
                 }
 
-                if(textoHobbies.endsWith(',')){
+
+
+
+                if (textoHobbies.endsWith(',')) {
                     textoHobbies = textoHobbies.substring(0, textoHobbies.trimmedLength()) + '.'
                 }
 
 
 
-                if (suscripcion.isChecked){
+                if (suscripcion.isChecked) {
                     suscrito = "Si"
-                }else{
+                } else {
                     suscrito = "No"
                 }
 
@@ -154,17 +158,24 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             }
 
         }
+        if (savedInstanceState != null) {
+            val textoGuardado = savedInstanceState.getString(KEY_EDIT_TEXT)
+            textoMostrar.setText(textoGuardado)
+        }
 
         spinnerPaisSeleccion.onItemSelectedListener = this
     }
 
-         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-              paisSelecionado = spinnerPaisSeleccion.selectedItem.toString()
-         }
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        paisSelecionado = spinnerPaisSeleccion.selectedItem.toString()
+    }
 
-         override fun onNothingSelected(p0: AdapterView<*>?) {
-             paisSelecionado = "No hay niguno seleccionado"
-         }
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        paisSelecionado = "No hay niguno seleccionado"
+    }
 
-
-     }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(KEY_EDIT_TEXT, textoMostrar.text.toString())
+    }
+}
