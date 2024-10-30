@@ -17,9 +17,10 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.trimmedLength
 
 
-     class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     lateinit var spinnerPaisSeleccion: Spinner
     lateinit var paisSelecionado: String
     lateinit var suscrito: String
@@ -49,7 +50,6 @@ import androidx.appcompat.app.AppCompatActivity
         val textoMostrar = findViewById<TextView>(R.id.textViewMostrar)
         mostrarProgreso = "0"
         textoMostrar.text = ""
-        suscrito = "No"
         nombreMostrar = ""
         apellidoMostrar = ""
         correoMostrar = ""
@@ -57,12 +57,7 @@ import androidx.appcompat.app.AppCompatActivity
         seekBarSatisfaccion.max = 10
         seekBarSatisfaccion.min = 0
 
-
-        if (suscripcion.isChecked){
-            suscrito = "Si"
-        }
-
-
+        textoNombre.requestFocus()
 
 
         ArrayAdapter.createFromResource(
@@ -92,8 +87,6 @@ import androidx.appcompat.app.AppCompatActivity
         })
 
 
-
-
         botonGuardar.setOnClickListener {
 
             if (textoNombre.text.toString() == "") {
@@ -118,24 +111,35 @@ import androidx.appcompat.app.AppCompatActivity
 
 
                 if(seleccionHobbiesArte.isChecked){
-                    textoHobbies += seleccionHobbiesArte.text.toString().lowercase() + ","
-
+                    textoHobbies += " " + seleccionHobbiesArte.text.toString().lowercase() + ","
                 }
                 if(seleccionHobbiesMusica.isChecked){
-                    textoHobbies += seleccionHobbiesMusica.text.toString().lowercase() + ","
-
+                    textoHobbies += " " + seleccionHobbiesMusica.text.toString().lowercase() + ","
                 }
                 if(seleccionHobbiesDeporte.isChecked){
-                    textoHobbies += seleccionHobbiesDeporte.text.toString().lowercase() + ","
-
+                    textoHobbies += " " + seleccionHobbiesDeporte.text.toString().lowercase() + ","
                 }
                 if(seleccionHobbiesLectura.isChecked){
-                    textoHobbies += seleccionHobbiesLectura.text.toString().lowercase() + ","
-
+                    textoHobbies += " " + seleccionHobbiesLectura.text.toString().lowercase() + ","
                 }
                 if(textoHobbies == ""){
                     textoHobbies = "No has seleccionado ningún  hobbie"
                 }
+
+                if(textoHobbies.endsWith(',')){
+                    textoHobbies = textoHobbies.substring(0, textoHobbies.trimmedLength()) + '.'
+                }
+
+
+
+                if (suscripcion.isChecked){
+                    suscrito = "Si"
+                }else{
+                    suscrito = "No"
+                }
+
+
+
 
                 textoMostrar.text = """
                     Nombre: $nombreMostrar
@@ -148,8 +152,6 @@ import androidx.appcompat.app.AppCompatActivity
                 """.trimIndent()
 
             }
-
-
 
         }
 
